@@ -1,18 +1,20 @@
 // importaciones necesarias
 const conn = require('../config/config');
+const cdHelper = require('../helpers/sql/jurisdicción');
+const statusHelper = require('../helpers/status/status');
 
 const  cdModel = {};
 
 // Obtenemos todas las jurisdicciones
 cdModel.getCdad = async (req, res) => {
     try {
-        const result = await conn.any(`SELECT * FROM jurisdicciones`);
-        return res.status(200).json({
+        const result = await conn.any(cdHelper.getCdad);
+        return res.status(statusHelper.success).json({
             ok: true,
             cds: result
         });
     } catch (err) {
-        return res.status(500).json({
+        return res.status(statusHelper.error).json({
             ok: false,
             mensaje: 'Error al cargar las jurisdicciones',
             errors: err
@@ -21,15 +23,15 @@ cdModel.getCdad = async (req, res) => {
 };
 
 // Creamos nuevas jurisdicciones
-cdModel.postCd = async (req, res) => {
+cdModel.postCdad = async (req, res) => {
     try {
-        await conn.any(`INSERT INTO jurisdicciones(departamento_id, descripcion, created_at) VALUES ($1, $2, now())`, [req.body.departamento_id, req.body.descripcion]);
-        return res.status(201).json({
+        await conn.any(cdHelper.postCdad, [req.body.departamento_id, req.body.descripcion]);
+        return res.status(statusHelper.created).json({
             ok: true,
             mensaje: 'Jurisdiccion creada exitosamente'
         });
     } catch (err) {
-        return res.status(400).json({
+        return res.status(statusHelper.bad).json({
             ok: false,
             mensaje: 'Ocurrió un error al crear el nuevo departamento',
             errors: err
@@ -38,15 +40,15 @@ cdModel.postCd = async (req, res) => {
 };
 
 // Actualizamos una jurisdicción
-cdModel.putCd = async (req, res) => {
+cdModel.putCdad= async (req, res) => {
     try {
-        await conn.any(`UPDATE jurisdicciones SET descripcion = $1, updated_at = now() WHERE id = $2`, [req.body.descripcion, req.params.cdId]);
-        return res.status(200).json({
+        await conn.any(cdHelper.putCdad, [req.body.descripcion, req.params.cdId]);
+        return res.status(statusHelper.success).json({
             ok: true,
             mensaje: 'Cambios aplicados exitosamente'
         });
     } catch (err) {
-        return res.status(400).json({
+        return res.status(statusHelper.bad).json({
             ok: false,
             mensaje: 'Ocurrió un error al intentar aplicar los cambios',
             errors: err
@@ -55,15 +57,15 @@ cdModel.putCd = async (req, res) => {
 };
 
 // Inactivamos una jurisdicción
-cdModel.patchCd = async (req, res) => {
+cdModel.patchCdad = async (req, res) => {
     try {
-        await conn.any(`UPDATE jurisdicciones SET activo = false, updated_at = now() where id = $1`, [req.params.cdId]);
-        return res.status(200).json({
+        await conn.any(cdHelper.patchCdad, [req.params.cdId]);
+        return res.status(statusHelper.success).json({
             ok: true,
             mensaje: 'Jurisdicción inactivada'
         });
     } catch (err) {
-        return res.status(400).json({
+        return res.status(statusHelper.bad).json({
             ok: false,
             mensaje: 'Ocurrió un error al inactivar la jurisdicción',
             errors: err
@@ -72,15 +74,15 @@ cdModel.patchCd = async (req, res) => {
 };
 
 // Borramos una jurisdicción
-cdModel.deleteCd = async (req, res) => {
+cdModel.deleteCdad = async (req, res) => {
     try {
-        await conn.any(`DELETE FROM jurisdicciones WHERE id = $1`, [req.params.cdId]);
-        return res.status(200).json({
+        await conn.any(cdHelper.deleteCdad, [req.params.cdId]);
+        return res.status(statusHelper.success).json({
             ok:true,
             mensaje: 'Jurisdicción borrada exitosamente'
         })
     } catch (err) {
-        return res.status(400).json({
+        return res.status(statusHelper.bad).json({
             ok: false,
             mensaje: 'Ocurrió un error al borrar la jurisdicción',
             errors: err

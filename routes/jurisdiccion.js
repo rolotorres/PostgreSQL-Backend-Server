@@ -7,12 +7,12 @@ const cdModel = require('../models/jurisdiccion');
 
 router.get('/', cdModel.getCdad);
 
-router.post('/', cdModel.postCd);
+router.post('/', cdModel.postCdad);
 
-router.put('/:cdId', cdModel.putCd);
+router.put('/:cdId', cdModel.putCdad);
 
-router.patch('/:cdId', cdModel.patchCd);
+router.patch('/:cdId', cdModel.patchCdad);
 
-router.delete('/:cdId', cdModel.deleteCd);
+router.delete('/:cdId', cdModel.deleteCdad);
 
 module.exports = router;

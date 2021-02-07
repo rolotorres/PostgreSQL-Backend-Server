@@ -14,3 +14,4 @@ function authDN(usuario, password) {
     });
 }
 
+authDN("uid=administrador,ou=senatur", "Supercontrasena1");
