@@ -1,7 +1,7 @@
 const conn = require('../config/config');
 
 // Obtenemos todos los departamentos
-async function getDpto(req, res){
+const getDpto = async ( req, res ) => {
     try{
         const result = await conn.any('SELECT * FROM departamentos');
         return res.status(200).json({
@@ -15,10 +15,10 @@ async function getDpto(req, res){
             errors: err
         });
     };
-};
+}
 
 // Creamos nuevos departamentos
-async function postDpto(req, res){
+const postDpto = async (req, res) => {
     try {
         await conn.any(`INSERT INTO departamentos(descripcion, created_at) VALUES ($1, now())`, [req.body.descripcion])
         return res.status(201).json({
@@ -35,7 +35,7 @@ async function postDpto(req, res){
 }
 
 // Actualizamos un departamento
-async function putDpto(req, res){
+const putDpto = async (req, res) => {
     try {
         await conn.any(`UPDATE departamentos SET descripcion = $1, updated_at = now() WHERE id = $2`, [req.body.descripcion, req.params.dptoId])
         return res.status(200).json({
@@ -52,7 +52,7 @@ async function putDpto(req, res){
 }
 
 // Inactivamos un departamento
-async function patchDpto(req, res){
+const patchDpto = async (req, res) => {
     try {
         await conn.any(`UPDATE departamentos SET activo = false, updated_at = now() WHERE id = $1`, [req.params.dptoId])
         return res.status(200).json({
@@ -69,7 +69,7 @@ async function patchDpto(req, res){
 }
 
 // Borramos un departamento
-async function deleteDpto(req, res){
+const deleteDpto = async (req, res) => {
     try {
         await conn.any(`DELETE FROM departamentos WHERE id = $1`, [req.params.dptoId])
         return res.status(200).json({
