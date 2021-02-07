@@ -1,10 +1,9 @@
 // importaciones necesarias
 const express = require('express');
-const dptoModel = require('../models/departamento');
 const router = express.Router();
 
 // importamos el modelo Departamento
-const Dpto = require('../models/departamento');
+const dptoModel = require('../models/departamento');
 
 router.get('/', dptoModel.getDpto);
 

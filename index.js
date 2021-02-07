@@ -11,7 +11,8 @@ const app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-var appRoutes = require('./routes/app');
+const appRoutes = require('./routes/app');
+const cdsRoutes = require('./routes/jurisdiccion');
 const dptosRoutes = require('./routes/departamentos');
 
 app.listen(process.env.PORT, () => {
@@ -19,4 +20,5 @@ app.listen(process.env.PORT, () => {
 });
 
 app.use('/dptos', dptosRoutes);
+app.use('/cds', cdsRoutes);
 app.use('/', appRoutes);
