@@ -1,5 +1,5 @@
 // importaciones necesarias
-const conn = require('../config/config');
+const conn = require('../config/postgres');
 const cdHelper = require('../helpers/sql/jurisdicción');
 const statusHelper = require('../helpers/status/status');
 

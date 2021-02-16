@@ -1,9 +1,12 @@
-var express = require('express');
+// Importaciones necesarias
+const express = require('express');
+const statusHelper = require('../helpers/status/status');
 
-var app = express();
+// Inicializamos el express
+const app = express();
 
 app.get('/', (req, res) => {
-    res.status(200).json({
+    res.status(statusHelper.success).json({
         ok: true,
         mensaje: 'Petición realizada correctamente'
     });

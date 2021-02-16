@@ -15,3 +15,5 @@ Además, se deben instalar las siguientes librerias
 * cors
 * body-parser
 * pg-promise
+* ldapjs
+* jsonwebtoken
